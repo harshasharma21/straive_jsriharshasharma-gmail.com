@@ -1,25 +1,23 @@
+
 export default function json2html(data) {
-  const headers = ["Name", "Age", "Gender"];
-  
-  let table = `<table data-user="jsriharshasharma@gmail.com"><thead><tr>`;
-  
-  // Add table headers
-  headers.forEach(header => {
-    table += `<th>${header}</th>`;
-  });
-  
-  table += `</tr></thead><tbody>`;
-  
-  // Add table rows
-  data.forEach(row => {
-    table += `<tr>`;
+    let html = '<table data-user="keshav.narkudi@gmail.com"><thead><tr>';
+
+    const headers = Array.from(new Set(data.flatMap(Object.keys)));
+
     headers.forEach(header => {
-      table += `<td>${row[header] !== undefined ? row[header] : ''}</td>`;
+      html += `<th>${header}</th>`;
     });
-    table += `</tr>`;
-  });
-  
-  table += `</tbody></table>`;
-  
-  return table;
+    html += "</tr></thead><tbody>";
+
+    data.forEach(row => {
+      html += "<tr>";
+      headers.forEach(header => {
+        html += `<td>${row[header] || ''}</td>`; 
+      });
+      html += "</tr>";
+    });
+
+    html += "</tbody></table>";
+    return html;
 }
+
